@@ -51,7 +51,6 @@ export const DownloadSection: React.FC<DownloadSectionProps> = () => {
                     href={APP_CONFIG.apkDownloadUrl}
                     download="ReelFetch.apk"
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-bold text-base text-brand-dark-text bg-white hover:bg-purple-50 shadow-xl transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-4 focus-visible:ring-white/40 cursor-pointer"
-                    aria-label="Download Android APK"
                   >
                     <Download className="w-5 h-5 text-brand-purple" />
                     <span>Download for Android (APK)</span>

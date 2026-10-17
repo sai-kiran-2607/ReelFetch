@@ -1,17 +1,27 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { RouterProvider } from './context/RouterContext';
 import { useRouter } from './hooks/useRouter';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
-import { PrivacyModal } from './components/legal/PrivacyModal';
 
-// Pages
+// Eager load HomePage for instant landing page LCP
 import { HomePage } from './pages/HomePage';
-import { AboutPage } from './pages/AboutPage';
-import { InstallGuidePage } from './pages/InstallGuidePage';
-import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
-import { TermsPage } from './pages/TermsPage';
-import { ContactPage } from './pages/ContactPage';
+
+// Lazy-load secondary pages and modals into separate chunks
+const AboutPage = lazy(() => import('./pages/AboutPage').then(m => ({ default: m.AboutPage })));
+const InstallGuidePage = lazy(() => import('./pages/InstallGuidePage').then(m => ({ default: m.InstallGuidePage })));
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage').then(m => ({ default: m.PrivacyPolicyPage })));
+const TermsPage = lazy(() => import('./pages/TermsPage').then(m => ({ default: m.TermsPage })));
+const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ default: m.ContactPage })));
+const PrivacyModal = lazy(() => import('./components/legal/PrivacyModal').then(m => ({ default: m.PrivacyModal })));
+
+function RouteLoadingFallback() {
+  return (
+    <div className="min-h-[50vh] flex items-center justify-center">
+      <div className="w-8 h-8 rounded-full border-2 border-brand-purple border-t-transparent animate-spin" />
+    </div>
+  );
+}
 
 function AppContent() {
   const { path } = useRouter();
@@ -21,15 +31,35 @@ function AppContent() {
   const renderCurrentPage = () => {
     switch (path) {
       case '/about':
-        return <AboutPage />;
+        return (
+          <Suspense fallback={<RouteLoadingFallback />}>
+            <AboutPage />
+          </Suspense>
+        );
       case '/install-guide':
-        return <InstallGuidePage />;
+        return (
+          <Suspense fallback={<RouteLoadingFallback />}>
+            <InstallGuidePage />
+          </Suspense>
+        );
       case '/privacy-policy':
-        return <PrivacyPolicyPage />;
+        return (
+          <Suspense fallback={<RouteLoadingFallback />}>
+            <PrivacyPolicyPage />
+          </Suspense>
+        );
       case '/terms':
-        return <TermsPage />;
+        return (
+          <Suspense fallback={<RouteLoadingFallback />}>
+            <TermsPage />
+          </Suspense>
+        );
       case '/contact':
-        return <ContactPage />;
+        return (
+          <Suspense fallback={<RouteLoadingFallback />}>
+            <ContactPage />
+          </Suspense>
+        );
       case '/':
       default:
         return <HomePage />;
@@ -49,11 +79,15 @@ function AppContent() {
       {/* Footer */}
       <Footer onPrivacyClick={() => setPrivacyModalOpen(true)} />
 
-      {/* Quick Privacy Modal Dialog */}
-      <PrivacyModal
-        isOpen={privacyModalOpen}
-        onClose={() => setPrivacyModalOpen(false)}
-      />
+      {/* Quick Privacy Modal Dialog (Lazy-loaded) */}
+      {privacyModalOpen && (
+        <Suspense fallback={null}>
+          <PrivacyModal
+            isOpen={privacyModalOpen}
+            onClose={() => setPrivacyModalOpen(false)}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }

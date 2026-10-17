@@ -74,7 +74,14 @@ export const MobileMockup: React.FC = () => {
           <div className="px-4 py-2 border-b border-brand-border-subtle flex items-center justify-between bg-white">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg overflow-hidden border border-brand-border-light shadow-sm flex items-center justify-center bg-brand-light-purple">
-                <img src="/logo.png" alt="ReelFetch" className="w-full h-full object-cover" />
+                <img
+                  src="/logo.webp"
+                  alt="ReelFetch"
+                  width="32"
+                  height="32"
+                  decoding="async"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div>
                 <div className="flex items-center gap-1">

@@ -85,7 +85,7 @@ export const HowItWorks: React.FC = () => {
                 <div>
                   {/* Top Row: Big Number & Icon */}
                   <div className="flex items-center justify-between mb-6">
-                    <span className="text-4xl font-extrabold text-brand-purple/20 font-mono">
+                    <span className="text-4xl font-extrabold text-brand-purple/20 font-mono" aria-hidden="true">
                       {step.number}
                     </span>
                     <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-purple to-brand-deep-purple text-white flex items-center justify-center shadow-md shadow-brand-purple/25">

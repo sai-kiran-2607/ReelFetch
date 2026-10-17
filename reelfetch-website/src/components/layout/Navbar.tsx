@@ -59,11 +59,19 @@ export const Navbar: React.FC<NavbarProps> = () => {
           >
             <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-xl overflow-hidden shadow-md shadow-brand-purple/20 transition-transform duration-200 group-hover:scale-105 border border-brand-border-light bg-white flex items-center justify-center">
               <img
-                src="/logo.png"
+                src="/logo.webp"
                 alt="ReelFetch App Logo"
+                width="44"
+                height="44"
+                decoding="async"
                 className="w-full h-full object-cover"
                 onError={(e) => {
-                  (e.target as HTMLElement).style.display = 'none';
+                  const target = e.target as HTMLImageElement;
+                  if (!target.src.endsWith('/logo-256.png')) {
+                    target.src = '/logo-256.png';
+                  } else {
+                    target.style.display = 'none';
+                  }
                 }}
               />
             </div>

@@ -22,7 +22,7 @@ export const Hero: React.FC<HeroProps> = () => {
   return (
     <section className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden bg-gradient-hero">
       {/* Background radial gradient blobs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-brand-purple/15 to-brand-pink/15 rounded-full blur-3xl -z-10 pointer-events-none" />
+      <div className="absolute top-44 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-brand-purple/15 to-brand-pink/15 rounded-full blur-3xl -z-10 pointer-events-none" />
       <div className="absolute top-10 left-10 w-72 h-72 bg-brand-light-purple/60 rounded-full blur-2xl -z-10 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -63,7 +63,6 @@ export const Hero: React.FC<HeroProps> = () => {
                   download="ReelFetch.apk"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-bold text-base text-white bg-gradient-brand hover:opacity-95 shadow-xl shadow-brand-purple/25 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-purple/30 group cursor-pointer"
                   id="hero-download-cta"
-                  aria-label="Download ReelFetch APK for Android"
                 >
                   <Smartphone className="w-5 h-5 transition-transform group-hover:scale-110" />
                   <span>Download for Android</span>

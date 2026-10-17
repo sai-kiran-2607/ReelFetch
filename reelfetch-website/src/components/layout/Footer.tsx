@@ -34,7 +34,15 @@ export const Footer: React.FC<FooterProps> = ({ onPrivacyClick }) => {
           <div className="md:col-span-4 space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl overflow-hidden border border-brand-border-light shadow-sm flex items-center justify-center bg-brand-light-purple">
-                <img src="/logo.png" alt="ReelFetch Logo" className="w-full h-full object-cover" />
+                <img
+                  src="/logo.webp"
+                  alt="ReelFetch Logo"
+                  width="40"
+                  height="40"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div>
                 <span className="font-extrabold text-xl text-brand-dark-text tracking-tight">

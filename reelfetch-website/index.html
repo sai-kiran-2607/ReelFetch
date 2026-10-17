@@ -9,31 +9,60 @@
     <meta name="description" content="ReelFetch is a clean, privacy-focused Android app to save public Instagram Reels directly to your local storage and gallery. Fast downloads in HD, SD, and audio formats." />
     <meta name="keywords" content="ReelFetch, Instagram Reels saver, download Instagram reels, save reels android apk, offline reel viewer, insta video download" />
     <meta name="author" content="ReelFetch Team" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="theme-color" content="#7138F5" />
     <link rel="canonical" href="https://reel-fetch-henna.vercel.app/" />
     <meta name="google-site-verification" content="GRWxVg5soHQ4kc3glXGLMFZM55QsfxnOsAPMmyksSgI" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ReelFetch" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:url" content="https://reel-fetch-henna.vercel.app/" />
     <meta property="og:title" content="ReelFetch — Instagram Reels Saver | Save Reels. Watch Anytime." />
     <meta property="og:description" content="Save your favorite Instagram Reels directly to your Android device gallery with one tap. Fast, private, and local." />
     <meta property="og:image" content="https://reel-fetch-henna.vercel.app/logo.png" />
+    <meta property="og:image:width" content="1254" />
+    <meta property="og:image:height" content="1254" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content="ReelFetch App Logo" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="ReelFetch — Instagram Reels Saver" />
     <meta name="twitter:description" content="Save Reels. Watch Anytime. Fast, local Android reel saver with share sheet support and gallery export." />
     <meta name="twitter:image" content="https://reel-fetch-henna.vercel.app/logo.png" />
+    <meta name="twitter:image:alt" content="ReelFetch App Logo" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/logo.png" />
+    <!-- Structured Data: SoftwareApplication (Verified metadata only) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "ReelFetch",
+      "alternateName": "ReelFetch: Instagram Reels Saver",
+      "operatingSystem": "Android 8.0+",
+      "applicationCategory": "UtilitiesApplication",
+      "softwareVersion": "1.0.0",
+      "fileSize": "108.3 MB",
+      "downloadUrl": "https://github.com/sai-kiran-2607/app-hosting/releases/download/v1.0.0/ReelFetch.apk",
+      "url": "https://reel-fetch-henna.vercel.app/",
+      "image": "https://reel-fetch-henna.vercel.app/logo.png",
+      "description": "ReelFetch is a clean, privacy-focused Android app to save public Instagram Reels directly to your local storage and gallery. Fast downloads in HD, SD, and audio formats.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Favicon & Touch Icons -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   </head>
   <body class="bg-white text-brand-dark-text antialiased selection:bg-brand-purple selection:text-white font-sans min-h-screen">
     <div id="root"></div>
