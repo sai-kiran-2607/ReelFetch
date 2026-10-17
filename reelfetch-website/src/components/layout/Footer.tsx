@@ -1,17 +1,26 @@
 import React from 'react';
-import { ShieldCheck, Mail, ArrowUp } from 'lucide-react';
+import { ShieldCheck, ArrowUp } from 'lucide-react';
 import { APP_CONFIG, isApkConfigured } from '../../config/appConfig';
+import { useRouter } from '../../hooks/useRouter';
 
 interface FooterProps {
   onPrivacyClick: () => void;
   onDownloadClick?: () => void;
 }
 
+const CURRENT_YEAR = new Date().getFullYear();
+
 export const Footer: React.FC<FooterProps> = ({ onPrivacyClick }) => {
+  const { navigate } = useRouter();
   const isReady = isApkConfigured();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleLink = (e: React.MouseEvent, to: string) => {
+    e.preventDefault();
+    navigate(to);
   };
 
   return (
@@ -22,7 +31,7 @@ export const Footer: React.FC<FooterProps> = ({ onPrivacyClick }) => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-brand-border-subtle">
           
           {/* Brand Info */}
-          <div className="md:col-span-5 space-y-4">
+          <div className="md:col-span-4 space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl overflow-hidden border border-brand-border-light shadow-sm flex items-center justify-center bg-brand-light-purple">
                 <img src="/logo.png" alt="ReelFetch Logo" className="w-full h-full object-cover" />
@@ -38,7 +47,7 @@ export const Footer: React.FC<FooterProps> = ({ onPrivacyClick }) => {
             </div>
 
             <p className="text-sm text-brand-secondary-text leading-relaxed max-w-sm">
-              {APP_CONFIG.tagline} The fast, private Android utility for saving Instagram Reels directly into your device gallery for offline watching anytime.
+              {APP_CONFIG.tagline} The fast, device-local Android utility for saving authorized Instagram Reels directly into your phone's photo gallery for offline watching anytime.
             </p>
 
             <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl w-fit">
@@ -47,18 +56,78 @@ export const Footer: React.FC<FooterProps> = ({ onPrivacyClick }) => {
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="md:col-span-3 space-y-3">
-            <p className="text-xs font-bold uppercase tracking-wider text-brand-dark-text">Navigation</p>
+          {/* Navigation & App Features */}
+          <div className="md:col-span-2 space-y-3">
+            <p className="text-xs font-bold uppercase tracking-wider text-brand-dark-text">Product</p>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <a href="#features" className="hover:text-brand-purple transition-colors">
+                <a
+                  href="/#features"
+                  onClick={(e) => handleLink(e, '/#features')}
+                  className="hover:text-brand-purple transition-colors"
+                >
                   Verified Features
                 </a>
               </li>
               <li>
-                <a href="#how-it-works" className="hover:text-brand-purple transition-colors">
-                  How It Works (3 Steps)
+                <a
+                  href="/#how-it-works"
+                  onClick={(e) => handleLink(e, '/#how-it-works')}
+                  className="hover:text-brand-purple transition-colors"
+                >
+                  How It Works
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/install-guide"
+                  onClick={(e) => handleLink(e, '/install-guide')}
+                  className="hover:text-brand-purple transition-colors"
+                >
+                  Install Guide
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/#faq"
+                  onClick={(e) => handleLink(e, '/#faq')}
+                  className="hover:text-brand-purple transition-colors"
+                >
+                  FAQ
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Guides & Resources */}
+          <div className="md:col-span-3 space-y-3">
+            <p className="text-xs font-bold uppercase tracking-wider text-brand-dark-text">Resources</p>
+            <ul className="space-y-2.5 text-sm">
+              <li>
+                <a
+                  href="/about"
+                  onClick={(e) => handleLink(e, '/about')}
+                  className="hover:text-brand-purple transition-colors"
+                >
+                  About ReelFetch
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/install-guide"
+                  onClick={(e) => handleLink(e, '/install-guide')}
+                  className="hover:text-brand-purple transition-colors"
+                >
+                  Android Sideloading
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/contact"
+                  onClick={(e) => handleLink(e, '/contact')}
+                  className="hover:text-brand-purple transition-colors"
+                >
+                  Contact & Support
                 </a>
               </li>
               <li>
@@ -66,51 +135,59 @@ export const Footer: React.FC<FooterProps> = ({ onPrivacyClick }) => {
                   <a
                     href={APP_CONFIG.apkDownloadUrl}
                     download="ReelFetch.apk"
-                    className="hover:text-brand-purple transition-colors text-left cursor-pointer"
+                    className="hover:text-brand-purple transition-colors font-medium text-brand-purple"
                   >
-                    Download Android APK
+                    Direct APK Download
                   </a>
                 ) : (
-                  <a
-                    href="#download"
-                    className="hover:text-brand-purple transition-colors text-left text-brand-muted-text"
-                  >
-                    Android APK (Coming soon)
-                  </a>
+                  <span className="text-brand-muted-text text-xs">APK Coming Soon</span>
                 )}
-              </li>
-              <li>
-                <a href="#faq" className="hover:text-brand-purple transition-colors">
-                  Frequently Asked Questions
-                </a>
               </li>
             </ul>
           </div>
 
-          {/* Legal & Support */}
-          <div className="md:col-span-4 space-y-3">
-            <p className="text-xs font-bold uppercase tracking-wider text-brand-dark-text">Support & Legal</p>
+          {/* Legal & Compliance */}
+          <div className="md:col-span-3 space-y-3">
+            <p className="text-xs font-bold uppercase tracking-wider text-brand-dark-text">Legal & Privacy</p>
             <ul className="space-y-2.5 text-sm">
+              <li>
+                <a
+                  href="/privacy-policy"
+                  onClick={(e) => handleLink(e, '/privacy-policy')}
+                  className="hover:text-brand-purple transition-colors font-medium"
+                >
+                  Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/terms"
+                  onClick={(e) => handleLink(e, '/terms')}
+                  className="hover:text-brand-purple transition-colors font-medium"
+                >
+                  Terms of Use
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/terms#copyright"
+                  onClick={(e) => handleLink(e, '/terms#copyright')}
+                  className="hover:text-brand-purple transition-colors"
+                >
+                  Authorized Saving Policy
+                </a>
+              </li>
               <li>
                 <button
                   type="button"
                   onClick={onPrivacyClick}
-                  className="hover:text-brand-purple transition-colors text-left font-medium"
+                  className="text-xs text-brand-purple hover:underline"
                 >
-                  Privacy Policy & Terms
+                  Quick Privacy Overview
                 </button>
               </li>
-              <li>
-                <a
-                  href={`mailto:${APP_CONFIG.supportEmail}`}
-                  className="hover:text-brand-purple transition-colors inline-flex items-center gap-1.5"
-                >
-                  <Mail className="w-3.5 h-3.5 text-brand-purple" />
-                  <span>Support: {APP_CONFIG.supportEmail}</span>
-                </a>
-              </li>
               <li className="text-xs text-brand-muted-text pt-1">
-                Version v{APP_CONFIG.version} • Target OS: Android 8.0+
+                Version v{APP_CONFIG.version} • Android 8.0+
               </li>
             </ul>
           </div>
@@ -121,10 +198,10 @@ export const Footer: React.FC<FooterProps> = ({ onPrivacyClick }) => {
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-2 text-center md:text-left">
             <p className="text-xs text-brand-secondary-text">
-              © {new Date().getFullYear()} {APP_CONFIG.appName}. All rights reserved.
+              © {CURRENT_YEAR} {APP_CONFIG.appName}. All rights reserved.
             </p>
-            <p className="text-xs text-brand-muted-text max-w-2xl leading-relaxed">
-              <strong className="font-semibold text-brand-secondary-text">Disclaimer:</strong> ReelFetch is an independent Android application and is not affiliated with, associated with, authorized, endorsed by, or in any way officially connected with Instagram, Meta Platforms, Inc., or any of their subsidiaries or affiliates. "Instagram" and the Instagram logo are registered trademarks of Meta Platforms, Inc.
+            <p className="text-xs text-brand-muted-text max-w-3xl leading-relaxed">
+              <strong className="font-semibold text-brand-secondary-text">Independent Disclaimer:</strong> ReelFetch is an independent Android application and is not affiliated with, associated with, authorized, sponsored, endorsed by, or in any way officially connected with Instagram, Meta Platforms, Inc., or any of their subsidiaries or affiliates. "Instagram" and the Instagram logo are registered trademarks of Meta Platforms, Inc. Users must only download media they are legally authorized to save.
             </p>
           </div>
 
@@ -132,7 +209,7 @@ export const Footer: React.FC<FooterProps> = ({ onPrivacyClick }) => {
           <button
             type="button"
             onClick={scrollToTop}
-            className="p-3 rounded-2xl bg-brand-light-purple text-brand-purple hover:bg-brand-purple hover:text-white transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple shrink-0"
+            className="p-3 rounded-2xl bg-brand-light-purple text-brand-purple hover:bg-brand-purple hover:text-white transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple shrink-0 cursor-pointer"
             aria-label="Scroll back to top"
           >
             <ArrowUp className="w-5 h-5" />

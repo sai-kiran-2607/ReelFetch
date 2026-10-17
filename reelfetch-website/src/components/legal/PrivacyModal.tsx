@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { X, ShieldCheck, Lock, HardDrive, FileText, Mail } from 'lucide-react';
+import { X, ShieldCheck, Lock, HardDrive, FileText, ArrowRight } from 'lucide-react';
 import { APP_CONFIG } from '../../config/appConfig';
+import { useRouter } from '../../hooks/useRouter';
 
 interface PrivacyModalProps {
   isOpen: boolean;
@@ -8,6 +9,8 @@ interface PrivacyModalProps {
 }
 
 export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) => {
+  const { navigate } = useRouter();
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -23,6 +26,11 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
+
+  const handleNavigate = (path: string) => {
+    onClose();
+    navigate(path);
+  };
 
   return (
     <div
@@ -43,7 +51,7 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
             </div>
             <div>
               <h2 id="privacy-title" className="text-xl font-bold text-brand-dark-text">
-                Privacy Policy & Terms
+                Privacy Overview
               </h2>
               <p className="text-xs text-brand-secondary-text">
                 Last updated: {APP_CONFIG.lastUpdated}
@@ -54,7 +62,7 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
           <button
             type="button"
             onClick={onClose}
-            className="p-2 rounded-xl text-brand-secondary-text hover:text-brand-dark-text hover:bg-brand-light-purple/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple transition-colors"
+            className="p-2 rounded-xl text-brand-secondary-text hover:text-brand-dark-text hover:bg-brand-light-purple/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple transition-colors cursor-pointer"
             aria-label="Close dialog"
           >
             <X className="w-5 h-5" />
@@ -67,17 +75,17 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
           <div className="p-4 rounded-2xl bg-brand-light-purple/40 border border-brand-border-light text-brand-dark-text text-xs space-y-1">
             <p className="font-bold text-brand-purple">Core Principle:</p>
             <p>
-              ReelFetch is architected from the ground up as a device-local utility. We do not maintain user databases, do not require user accounts or logins, and never upload your media to any remote server.
+              ReelFetch is architected as an on-device utility. We do not require accounts, do not ask for your Instagram credentials, and never upload your media to any remote server.
             </p>
           </div>
 
           <section className="space-y-2">
             <h3 className="text-base font-bold text-brand-dark-text flex items-center gap-2">
               <Lock className="w-4 h-4 text-brand-purple" />
-              <span>1. Zero Personal Data Collection</span>
+              <span>1. Zero Personal Account Data</span>
             </h3>
             <p>
-              ReelFetch does not collect, record, transmit, or monetize any personally identifiable information (PII). We do not record your IP address, browsing history, Instagram login credentials, search queries, or identity. No account creation is ever requested.
+              ReelFetch operates without user registration. We do not prompt for, store, or transmit your Instagram login credentials, search history, or profile identity.
             </p>
           </section>
 
@@ -87,7 +95,7 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
               <span>2. Local Device Storage & Gallery Access</span>
             </h3>
             <p>
-              All downloaded video and audio files are saved strictly to your Android device’s local file system (<code className="font-mono text-xs bg-slate-100 px-1 py-0.5 rounded text-brand-purple">Internal Storage/ReelFetch</code>) and directly exported to your local Android MediaStore / Photo Gallery. ReelFetch never syncs, replicates, or uploads your saved media to external cloud infrastructure.
+              All downloaded video and audio files are saved strictly to your Android device’s local file system (<code className="font-mono text-xs bg-slate-100 px-1 py-0.5 rounded text-brand-purple">Internal Storage/ReelFetch</code>) and directly exported to your local Android MediaStore. Media is never stored on external ReelFetch cloud servers.
             </p>
           </section>
 
@@ -102,46 +110,60 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
             <ul className="list-disc list-inside space-y-1 pl-2 text-xs">
               <li><strong>Photos / Media Library (READ_MEDIA_VIDEO):</strong> Used exclusively to save and display downloaded videos in your gallery.</li>
               <li><strong>Notifications (POST_NOTIFICATIONS):</strong> Used solely to alert you upon download completion or error.</li>
-              <li><strong>Network Access (INTERNET):</strong> Required solely to stream public video data directly from source media servers to your device.</li>
+              <li><strong>Network Access (INTERNET):</strong> Required to fetch public video streams directly from source media servers to your device.</li>
             </ul>
           </section>
 
           <section className="space-y-2">
             <h3 className="text-base font-bold text-brand-dark-text flex items-center gap-2">
               <FileText className="w-4 h-4 text-brand-purple" />
-              <span>4. Independent Status & Non-Affiliation Disclaimer</span>
+              <span>4. Independent Status & Non-Affiliation</span>
             </h3>
             <p>
               ReelFetch is an independent software tool developed for personal offline media archiving. ReelFetch is not affiliated with, endorsed by, sponsored by, or associated with Instagram, Meta Platforms, Inc., or any of their affiliates or subsidiaries. All Instagram trademarks, logos, and brand names are the intellectual property of Meta Platforms, Inc.
             </p>
           </section>
 
-          <section className="space-y-2">
-            <h3 className="text-base font-bold text-brand-dark-text flex items-center gap-2">
-              <Mail className="w-4 h-4 text-brand-purple" />
-              <span>5. Contact & Support</span>
-            </h3>
-            <p>
-              If you have any questions, feedback, or inquiries regarding privacy or app functionality, contact our developer support team directly at{' '}
-              <a
-                href={`mailto:${APP_CONFIG.supportEmail}`}
-                className="text-brand-purple font-semibold hover:underline"
-              >
-                {APP_CONFIG.supportEmail}
-              </a>.
-            </p>
-          </section>
+          {/* Quick links to standalone pages */}
+          <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button
+              type="button"
+              onClick={() => handleNavigate('/privacy-policy')}
+              className="p-3.5 rounded-xl border border-brand-border-light bg-brand-light-purple/30 text-left hover:bg-brand-light-purple transition-all flex items-center justify-between"
+            >
+              <div>
+                <p className="text-xs font-bold text-brand-dark-text">Full Privacy Policy</p>
+                <p className="text-[11px] text-brand-secondary-text">Read comprehensive data handling details</p>
+              </div>
+              <ArrowRight className="w-4 h-4 text-brand-purple shrink-0 ml-2" />
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleNavigate('/terms')}
+              className="p-3.5 rounded-xl border border-brand-border-light bg-brand-light-purple/30 text-left hover:bg-brand-light-purple transition-all flex items-center justify-between"
+            >
+              <div>
+                <p className="text-xs font-bold text-brand-dark-text">Terms of Use</p>
+                <p className="text-[11px] text-brand-secondary-text">Review authorized content saving rules</p>
+              </div>
+              <ArrowRight className="w-4 h-4 text-brand-purple shrink-0 ml-2" />
+            </button>
+          </div>
 
         </div>
 
         {/* Modal Footer */}
-        <div className="pt-4 border-t border-brand-border-subtle shrink-0 flex justify-end">
+        <div className="pt-4 border-t border-brand-border-subtle shrink-0 flex items-center justify-between">
+          <span className="text-xs text-brand-secondary-text">
+            Support: <a href={`mailto:${APP_CONFIG.supportEmail}`} className="text-brand-purple font-medium hover:underline">{APP_CONFIG.supportEmail}</a>
+          </span>
           <button
             type="button"
             onClick={onClose}
-            className="px-6 py-2.5 rounded-xl font-bold text-sm text-white bg-brand-purple hover:bg-brand-purple-hover transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple"
+            className="px-6 py-2.5 rounded-xl font-bold text-sm text-white bg-brand-purple hover:bg-brand-purple-hover transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple cursor-pointer"
           >
-            Close Privacy Policy
+            Close Overview
           </button>
         </div>
 
