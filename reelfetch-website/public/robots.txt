@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://reelfetch.app/sitemap.xml
+Sitemap: https://reel-fetch-henna.vercel.app/sitemap.xml
